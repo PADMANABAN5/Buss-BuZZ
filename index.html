@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buss BuZZ</title>
+    <link rel="icon" type="icon" href="https://static.vecteezy.com/system/resources/previews/044/564/388/non_2x/bus-ticket-logo-illustration-design-free-vector.jpg">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <!-- Google Sign-In API -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <link rel="stylesheet" href="design.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-box login">
+            <form action="" method="post">
+                <h1 class="loginHeader">Login</h1>
+                <div class="input-box">
+                    <input type="text" id="login_user" placeholder="User name" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="login_pass" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <div class="forgot-link">
+                    <a class="Fp" href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn" onclick="loginpage()">Login</button>
+
+                <p class="or">or login with</p>
+
+                
+                <div id="g_id_onload"
+                    data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                    data-callback="handleCredentialResponse">
+                </div>
+                
+                <div class="g_id_signin" data-type="standard"></div>
+
+            </form>
+        </div>
+
+        <div class="form-box Register">
+            <form action="" onsubmit="return registerpage()" method="post">
+                <h1 class="registerHeader">Registration</h1>
+                <div class="input-box">
+                    <input type="text" id="res_user" placeholder="User name" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" id="res_email" placeholder="Email" required>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="res_pass" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+
+                <button type="submit" class="btn" onclick="registerpage()">Register</button>
+
+                <p class="or">or register with</p>
+                <div id="g_id_onload"
+                    data-client_id="429474687485-4634rtu90vfq4138nufob1vs2akuhqil.apps.googleusercontent.com"
+                    data-callback="handleCredentialResponse">
+                </div>
+                
+                <div class="g_id_signin" data-type="standard"></div>
+
+            </form>
+        </div>
+
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>Hello, Welcome!</h1>
+                <p>Don't have an account?</p>
+                <button class="btn register-btn">Register</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+                <h1>Welcome Back!</h1>
+                <p>Already have an account?</p>
+                <button class="btn login-btn">Login</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function handleCredentialResponse(response) {
+            console.log("JWT Token: " + response.credential);
+
+        
+            const userDetails = JSON.parse(atob(response.credential.split('.')[1]));
+            console.log("User Details:", userDetails);
+
+            alert(`Hello, ${userDetails.name}`);
+
+            
+            localStorage.setItem("user", JSON.stringify(userDetails));
+
+        
+            window.location.href = "dashboard.html";
+        }
+    </script>
+
+    <script>
+        const container = document.querySelector('.container');
+        const registerBtn = document.querySelector('.register-btn');
+        const loginBtn = document.querySelector('.login-btn');
+
+        registerBtn.addEventListener('click', () => {
+            container.classList.add('active');
+        });
+
+        loginBtn.addEventListener('click', () => {
+            container.classList.remove('active');
+        });
+    </script>
+
+    <script src="validateforlogin.js"></script>
+
+</body>
+
+</html>
